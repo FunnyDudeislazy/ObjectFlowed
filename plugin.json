@@ -1,0 +1,12 @@
+{
+    "ID": "2f4e384e-76ce-45c3-aea2-b16f5e5c328",
+    "ActionKeyword": "object",
+    "Name": "ObjectFlowed",
+    "Description": "a simple way to browse your objectified episodes.",
+    "Author": "FunnyDude",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/Flow-Launcher/Flow.Launcher.Plugin.HelloWorldPython",
+    "IcoPath": "Images\\app.png",
+    "ExecuteFileName": "main.py"
+}
