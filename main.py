@@ -9,7 +9,19 @@ sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 from flowlauncher import FlowLauncher
 import random
 import webbrowser
+from urllib.request import urlopen
+import re
 
+def get_latest_episode():
+    url = "https://objectifiedcomic.com/archive"
+
+    html = urlopen(url).read().decode("utf-8")
+
+    episodes = re.findall(r"Ep\s+(\d+)\.", html)
+
+    return max(map(int, episodes)) - 1
+
+latest_ep = get_latest_episode()
 
 class ObjectFlowed(FlowLauncher):
 
@@ -29,18 +41,44 @@ class ObjectFlowed(FlowLauncher):
                     }
                 }]
 
-        if len(parts) == 1 and parts[0] in ["random", "Random"]:
-            episode = random.randint(1, 108)
+        elif len(parts) == 1 and parts[0] in ["random", "rand"]:
+            random_episode = random.randint(1, 2)
 
             return [{
-                    "Title": f"Open Objectified Episode {episode}",
-                    "SubTitle": f"https://objectifiedcomic.com/episode/{episode}",
+                    "Title": f"Open Objectified Episode {random_episode}",
+                    "SubTitle": f"https://objectifiedcomic.com/episode/{random_episode}",
                     "IcoPath": "Images/app.png",
                     "JsonRPCAction": {
                         "method": "open_episode",
-                        "parameters": [episode]
+                        "parameters": [random_episode]
                     }
                 }]
+
+        elif len(parts) == 1 and parts[0] in ["latest"]:
+
+            return [{
+                    "Title": f"Latest Objectified Episode: {latest_ep}",
+                    "SubTitle": f"https://objectifiedcomic.com/episode/{latest_ep}",
+                    "IcoPath": "Images/app.png",
+                    "JsonRPCAction": {
+                        "method": "open_episode",
+                        "parameters": [latest_ep]
+                    }
+                }]
+
+        elif len(parts) == 1 and parts[0] in ["first", "start"]:
+            first_ep = 1
+
+            return [{
+                    "Title": f"Latest Objectified Episode: {first_ep}",
+                    "SubTitle": f"https://objectifiedcomic.com/episode/{first_ep}",
+                    "IcoPath": "Images/app.png",
+                    "JsonRPCAction": {
+                        "method": "open_episode",
+                        "parameters": [first_ep]
+                    }
+                }]
+
 
         return []
 
