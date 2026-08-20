@@ -70,7 +70,7 @@ class ObjectFlowed(FlowLauncher):
             first_ep = 1
 
             return [{
-                    "Title": f"Start Reading: {first_ep}",
+                    "Title": f"Start Reading",
                     "SubTitle": f"https://objectifiedcomic.com/episode/{first_ep}",
                     "IcoPath": "Images/app.png",
                     "JsonRPCAction": {
