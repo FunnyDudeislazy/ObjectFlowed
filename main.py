@@ -21,8 +21,6 @@ def get_latest_episode():
 
     return max(map(int, episodes)) - 1
 
-latest_ep = get_latest_episode()
-
 class ObjectFlowed(FlowLauncher):
 
     def query(self, query):
@@ -42,7 +40,8 @@ class ObjectFlowed(FlowLauncher):
                 }]
 
         elif len(parts) == 1 and parts[0] in ["random", "rand"]:
-            random_episode = random.randint(1, 2)
+            latest_ep = get_latest_episode()
+            random_episode = random.randint(1, latest_ep)
 
             return [{
                     "Title": f"Open Objectified Episode {random_episode}",
@@ -55,6 +54,7 @@ class ObjectFlowed(FlowLauncher):
                 }]
 
         elif len(parts) == 1 and parts[0] in ["latest"]:
+            latest_ep = get_latest_episode()
 
             return [{
                     "Title": f"Latest Objectified Episode: {latest_ep}",
@@ -70,7 +70,7 @@ class ObjectFlowed(FlowLauncher):
             first_ep = 1
 
             return [{
-                    "Title": f"Latest Objectified Episode: {first_ep}",
+                    "Title": f"Start Reading: {first_ep}",
                     "SubTitle": f"https://objectifiedcomic.com/episode/{first_ep}",
                     "IcoPath": "Images/app.png",
                     "JsonRPCAction": {
